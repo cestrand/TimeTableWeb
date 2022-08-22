@@ -33,3 +33,24 @@
         </tr>
     </tbody>
 </table>
+
+@{
+    string? APPSETTING1 = System.Environment.GetEnvironmentVariable("APPSETTING1");
+}
+@if (APPSETTING1 is not null)
+{
+    <div class="card">
+        <div class="card-body">
+            <p>Environment variable APPSETTING1 is set to @APPSETTING1</p>
+        </div>
+    </div>
+}
+else 
+{
+    <div class="card">
+        <div class="card-body">
+            <p>Environment variable APPSETTING1 is not set.</p>
+        </div>
+    </div>
+}
+
