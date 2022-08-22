@@ -1,4 +1,7 @@
 ﻿@page
+@using System.Collections
+using System.Collections.Generic;
+using System.Linq;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -54,3 +57,28 @@ else
     </div>
 }
 
+@{
+    Dictionary<string, string> environmentVariables = new();
+    foreach(DictionaryEntry envVariable in System.Environment.GetEnvironmentVariables())
+    {
+        environmentVariables.Add(envVariable.Key.ToString(), envVariable.Value.ToString());
+    }
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Environment Variable</th>
+            <th scope="col">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var envVariable in (from entry in environmentVariables orderby entry.Key ascending select entry))
+        {
+            <tr>
+            <th scope="row">@envVariable.Key</th>
+            <td>@envVariable.Value</td>
+        </tr>
+        }
+        
+    </tbody>
+</table>
